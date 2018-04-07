@@ -61,45 +61,4 @@ public class Config {
 
     // DB
     public static String DB_NAME = "vci_scholar";
-
-    public static TransportClient client = null;
-
-    public static void main(String[] args) throws IOException, URISyntaxException {
-        JsonArray hits = DataUtl.queryES(Config.ES_REFERENCES_FIELD_NAME, "vững –\nInternational");
-
-        ArrayList<Article> articles = new ArrayList<>(hits.size());
-
-        for (int i = 0; i < hits.size(); ++i) {
-            Article article = new Article();
-            JsonObject articleObject = hits.get(i).getAsJsonObject().get("_source").getAsJsonObject();
-
-            article.setId(articleObject.get(ES_ID_FIELD_NAME).getAsInt());
-            System.out.println(article.getId());
-
-            article.setTitle(articleObject.get(ES_TITLE_FIELD_NAME).getAsString());
-            System.out.println(article.getTitle());
-
-            article.setReferences(new References(articleObject.get(ES_REFERENCES_FIELD_NAME).getAsString()));
-            System.out.println(articleObject.get("reference").getAsString());
-
-            article.setAuthors(getAuthors(articleObject.get(ES_AUTHORS_FIELD_NAME).getAsJsonArray()));
-
-            articles.add(article);
-        }
-    }
-
-    public static String[] getAuthors(JsonArray authorsObject) {
-        if (authorsObject.size() == 0) {
-            return new String[0];
-        }
-
-        String[] authors = new String[authorsObject.size()];
-
-        for (int i = 0; i < authorsObject.size(); ++i) {
-            authors[i] = authorsObject.get(i).getAsJsonObject().get("name").getAsString();
-            System.out.println(authors[i]);
-        }
-
-        return authors;
-    }
 }

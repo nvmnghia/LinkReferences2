@@ -68,9 +68,10 @@ public class DataUtl {
             String result = EntityUtils.toString(response.getEntity(), "UTF-8");
             JsonObject rootObject = parser.parse(result).getAsJsonObject();
 
-            return rootObject.getAsJsonObject("count").getAsInt();
+            return rootObject.getAsJsonPrimitive("count").getAsInt();
 
         } catch (Exception e) {
+            e.printStackTrace();
             return -1;
         }
     }
