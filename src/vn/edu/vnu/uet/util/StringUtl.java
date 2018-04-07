@@ -1,5 +1,8 @@
 package vn.edu.vnu.uet.util;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 public class StringUtl {
     /**
      * Clean the input string

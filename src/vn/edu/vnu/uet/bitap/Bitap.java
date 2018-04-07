@@ -59,10 +59,13 @@ public class Bitap {
     /**
      * Same description as the above one, but return bool instead
      *
-     * @param text
-     * @param pattern
-     * @param error_threshold
-     * @return
+     * @param text The text to search.
+     * @param pattern The pattern to search for.
+     * @param error_threshold Highest error beyond which we give up.
+     * @return float [best_loc, similarity] array.
+     *         If no match is detected, returns [-1, 0.0f]
+     *         Obviously, the similarity returned only ranges from error_threshold away from 1.0f
+     *         i.e., if the error_threshold is 0.1f, then similarity is >= 0.9f and <= 1.0f
      */
     public static boolean isMatch(String text, String pattern, float error_threshold) {
         float[] result = match(text, pattern, error_threshold);
@@ -322,7 +325,7 @@ public class Bitap {
      * @param pattern The text to encode.
      * @return Hash of character locations.
      */
-    protected static Map<Character, Long> match_alphabet(String pattern) {
+    private static Map<Character, Long> match_alphabet(String pattern) {
         Map<Character, Long> s = new HashMap<Character, Long>();
         for (int i = 0; i < pattern.length(); ++i) {
             s.put(pattern.charAt(i), 0L);
@@ -345,7 +348,7 @@ public class Bitap {
      * @param pattern The text to encode.
      * @return Hash of character locations.
      */
-    protected static Map<Character, BitSet> match_alphabet_extended(String pattern, BitSetUtl bitSetUtl) {
+    private static Map<Character, BitSet> match_alphabet_extended(String pattern, BitSetUtl bitSetUtl) {
         Map<Character, BitSet> s = new HashMap<Character, BitSet>();
         for (int i = 0; i < pattern.length(); ++i) {
 //            s.put(pattern.charAt(i), 0L);

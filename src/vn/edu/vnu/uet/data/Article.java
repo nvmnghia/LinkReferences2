@@ -48,8 +48,8 @@ public class Article {
         return authors;
     }
 
-    public void setAuthors(String listAuthors) {
-        this.authors = listAuthors.split(", ");
+    public void setAuthors(String[] authors) {
+        this.authors = authors;
     }
 
     /**
@@ -57,11 +57,15 @@ public class Article {
      * @return list of all possible authors' names
      */
     public ArrayList<ArrayList<String>> getPossibleAuthorNames() {
+        if (authors == null) {
+            return new ArrayList<>();
+        }
+
         ArrayList<ArrayList<String>> possibleAuthorName = new ArrayList<>();
 
         for (String author : authors) {
             ArrayList<String> possibleNames = new ArrayList<>();
-            possibleNames.add(author);
+            possibleNames.add(author.toLowerCase());
 
             ArrayList<String> guessedNames = Name.generateAbbrNames(author);
             if (guessedNames != null) {

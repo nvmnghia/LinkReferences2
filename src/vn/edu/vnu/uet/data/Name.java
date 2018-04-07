@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Name {
     public static ArrayList<String> generateAbbrNames(String fullName) {
-        String[] words = fullName.split(" ");
+        String[] words = fullName.toLowerCase().split(" ");
 
         // If the full name was abbreviated already, return null
         // No shortening can be done
